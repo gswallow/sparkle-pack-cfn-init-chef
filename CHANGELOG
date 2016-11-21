@@ -1,0 +1,6 @@
+v0.0.4:
+- Add some content to the readme.
+- Add an IAM instance profile that allows the Chef node to pull objects from a Chef bucket.
+- Move Chef configuration parameters to a "Chef Namespace"
+- Support version constraints when installing Chef Omnitruck package
+- Add UserData, which actually runs Chef client.
