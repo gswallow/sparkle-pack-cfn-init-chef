@@ -22,7 +22,7 @@ SfnRegistry.register(:chef_client) do |_name, _config={}|
   metadata('AWS::CloudFormation::Init') do
     _camel_keys_set(:auto_disable)
     configSets do |sets|
-      sets.default += ['chef_client']
+      sets.default.concat(['chef_client'])
     end
     chef_client do
       files('/etc/chef/validation.pem') do
