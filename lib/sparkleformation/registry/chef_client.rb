@@ -68,7 +68,12 @@ SfnRegistry.register(:chef_client) do |_name, _config={}|
         command 'mkdir /var/log/chef'
         test 'test ! -e /var/log/chef'
       end
-      commands('02_chef_first_run') do
+      # Why is this still a problem, Chef?
+      commands('02_create_ec2_hints_file') do
+        command 'mkdir -p /etc/chef/ohai/hints && touch /etc/chef/ohai/hints/ec2.json'
+        test 'test ! -e /etc/chef/ohai/hints/ec2.json'
+      end
+      commands('03_chef_first_run') do
         command 'chef-client -j /etc/chef/first_run.json'
       end
     end
