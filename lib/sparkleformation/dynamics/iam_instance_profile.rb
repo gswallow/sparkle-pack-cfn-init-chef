@@ -12,8 +12,6 @@ SparkleFormation.dynamic(:iam_instance_profile) do |_name, _config = {}|
   #
   # Pass in a list of policy statements through _config[:policy_statements].
 
-  _config[:policy_statements] ||= []
-
   dynamic!(:i_a_m_instance_profile, _name).properties do
     path '/'
     roles _array(
@@ -48,7 +46,7 @@ SparkleFormation.dynamic(:iam_instance_profile) do |_name, _config = {}|
         *_config.fetch(:policy_statements, []).map { |s| s.is_a?(Hash) ? registry!(s.keys.first.to_sym, s.values.first) : registry!(s.to_sym) },
         -> {
           action %w(cloudformation:DescribeStackResource cloudformation:SignalResource)
-          resource join!( join!('arn', 'aws', 'cloudformation', region!, account_id!, 'stack', :options => { :delimiter => ':'}), stack_name!, stack_id!, :options => { :delimiter => '/' })
+          resource join!( join!('arn', 'aws', 'cloudformation', region!, account_id!, 'stack', :options => { :delimiter => ':'}), stack_name!, '*', :options => { :delimiter => '/' })
           effect 'Allow'
         },
         -> {
