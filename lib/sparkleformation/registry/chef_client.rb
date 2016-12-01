@@ -62,7 +62,7 @@ SfnRegistry.register(:chef_client) do |_name, _config={}|
         content first_run
       end
       commands('00_install_chef') do
-        command join!("curl -sSL https://omnitruck.chef.io/install.sh | sudo bash -s -- -v ", _config.fetch(:chef_version, 'latest'))
+        command join!('curl -sSL https://omnitruck.chef.io/install.sh | sudo bash -s -- -v ', _config.fetch(:chef_version, 'latest'))
       end
       commands('01_log_dir') do
         command 'mkdir /var/log/chef'
