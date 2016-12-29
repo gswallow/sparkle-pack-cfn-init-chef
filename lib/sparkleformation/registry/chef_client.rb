@@ -34,6 +34,7 @@ SfnRegistry.register(:chef_client) do |_name, _config={}|
         group 'root'
         authentication 'ChefS3Auth'
       end
+
       if _config[:chef_data_bag_secret]
         files('/etc/chef/encrypted_data_bag_secret') do
           source join!(
@@ -45,6 +46,7 @@ SfnRegistry.register(:chef_client) do |_name, _config={}|
           authentication 'ChefS3Auth'
         end
       end
+
       files('/etc/chef/client.rb') do
         content join!(
           "chef_server_url '", _config[:chef_server], "'\n",
@@ -58,21 +60,26 @@ SfnRegistry.register(:chef_client) do |_name, _config={}|
         owner 'root'
         group 'root'
       end
+
       files('/etc/chef/first_run.json') do
         content first_run
       end
+
       commands('00_install_chef') do
         command join!('curl -sSL https://omnitruck.chef.io/install.sh | sudo bash -s -- -v ', _config.fetch(:chef_version, 'latest'))
       end
+
       commands('01_log_dir') do
         command 'mkdir /var/log/chef'
         test 'test ! -e /var/log/chef'
       end
+
       # Why is this still a problem, Chef?
       commands('02_create_ec2_hints_file') do
         command 'mkdir -p /etc/chef/ohai/hints && touch /etc/chef/ohai/hints/ec2.json'
         test 'test ! -e /etc/chef/ohai/hints/ec2.json'
       end
+
       commands('03_chef_first_run') do
         command 'chef-client -j /etc/chef/first_run.json'
       end
