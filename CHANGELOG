@@ -1,3 +1,6 @@
+v0.0.5:
+- Add support for chef-solo.
+
 v0.0.4:
 - Add some content to the readme.
 - Add an IAM instance profile that allows the Chef node to pull objects from a Chef bucket.

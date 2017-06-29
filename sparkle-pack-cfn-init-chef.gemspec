@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'sparkle-pack-cfn-init-chef'
-  s.version = '0.0.4'
+  s.version = '0.0.5'
   s.licenses = ['MIT']
   s.summary = 'CFN Init Chef SparklePack'
   s.description = 'SparklePack to provide cfn-init config set to bootstrap an instance using Chef'
