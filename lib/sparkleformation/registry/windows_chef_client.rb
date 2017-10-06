@@ -81,7 +81,7 @@ SfnRegistry.register(:windows_chef_client) do |_name, _config={}|
       packages do
         msi do
           data![:awscli] = "https://s3.amazonaws.com/aws-cli/AWSCLI64.msi"
-          data![:chef_client] = join!("https://packages.chef.io/files/stable/chef/", ref!(:chef_version), "/windows/2012/chef-client-", ref!(:chef_version), "-x64.msi")
+          data![:chef_client] = join!("https://packages.chef.io/files/stable/chef/", ref!(:chef_version), "/windows/2012/chef-client-", ref!(:chef_version), "-1-x64.msi")
         end
       end
 
